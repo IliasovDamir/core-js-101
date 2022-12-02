@@ -255,9 +255,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  const t = true;
-  const f = false;
-  return (typeof value === 'string' || value instanceof String) ? t : f;
+  return (typeof value === 'string' || value instanceof String);
 }
 
 

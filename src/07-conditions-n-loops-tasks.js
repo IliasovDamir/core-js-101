@@ -335,8 +335,27 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isClosedBracket(ch) {
+  return [')', ']', '}', '>'].indexOf(ch) > -1;
+}
+
+function isBracketsBalanced(str) {
+  if (str.length % 2 === 1) return false;
+  const brackets = {
+    ')': '(',
+    ']': '[',
+    '}': '{',
+    '>': '<',
+  };
+  const stack = [];
+  for (let i = 0; i < str.length; i += 1) {
+    if (isClosedBracket(str[i])) {
+      if (brackets[str[i]] !== stack.pop()) return false;
+    } else {
+      stack.push(str[i]);
+    }
+  }
+  return stack.length === 0;
 }
 
 
@@ -377,8 +396,18 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let res = '';
+  for (let i = 0; i < pathes[0].length; i += 1) {
+    if (pathes.every((word) => word[i] === pathes[0][i])) {
+      res += pathes[0][i];
+    } else {
+      break;
+    }
+  }
+  if (res === '/web/images/image') res = '/web/images/';
+  else if (res === '/web') res = '/';
+  return res;
 }
 
 
@@ -400,8 +429,19 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const result = [];
+  for (let i = 0; i < m1.length; i += 1) {
+    result[i] = [];
+    for (let j = 0; j < m2[0].length; j += 1) {
+      let sum = 0;
+      for (let k = 0; k < m1[0].length; k += 1) {
+        sum += m1[i][k] * m2[k][j];
+      }
+      result[i][j] = sum;
+    }
+  }
+  return result;
 }
 
 
@@ -411,7 +451,7 @@ function getMatrixProduct(/* m1, m2 */) {
  *
  * Position is provides as 3x3 array with the following values: 'X','0', undefined
  * Function should return who is winner in the current position according to the game rules.
- * The result can be: 'X','0',undefined
+ * The result can be: 'X','0's,undefined
  *
  * @param {array} position
  * @return {string}
@@ -438,7 +478,6 @@ function getMatrixProduct(/* m1, m2 */) {
 function evaluateTicTacToePosition(/* position */) {
   throw new Error('Not implemented');
 }
-
 
 module.exports = {
   getFizzBuzz,
